@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  compile-sketch:
+  compress:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +38,7 @@ jobs:
         
         - name: Copy compressed files
           run: |
-            cp -rf /main/web-pages/*.gz /compressed/compressed
+            cp -rf main/web-pages/*.gz compressed/compressed
         
         - name: Remove commits and Push
           run: |
