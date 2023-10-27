@@ -62,9 +62,9 @@ jobs:
             echo "{sha}=$(git rev-parse HEAD)" >> $GITHUB_STATE
         
         - name: Update web-controller in Cookie-Cats
-          uses: distributhor/workflow-webhook@v3
-          env:
-            webhook_url: ${{ secrets.WEBHOOK_URL }}
-            webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+          uses: peter-evans/repository-dispatch@v2
           with:
-            data: '{"commit_id": "${{ steps.get-sha.outputs.sha }}"}'
+            token: ${{ secrets.WEBHOOK_SECRET }}
+            repository: Cookie-Cats/Cookie-Cats
+            event-type: update
+            client-payload: '{"commit_id": "${{ steps.get-sha.outputs.sha }}"}'
