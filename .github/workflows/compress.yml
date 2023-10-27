@@ -54,3 +54,17 @@ jobs:
             git branch -D compressed
             git branch -m compressed
             git push -f origin compressed
+        
+        - name: Get commit SHA
+          id: get-sha
+          run: |
+            cd main || exit 1
+            echo "{sha}=$(git rev-parse HEAD)" >> $GITHUB_STATE
+        
+        - name: Update web-controller in Cookie-Cats
+          uses: distributhor/workflow-webhook@v3
+          env:
+            webhook_url: ${{ secrets.WEBHOOK_URL }}
+            webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+          with:
+            data: '{"commit_id": "${{ steps.get-sha.outputs.sha }}"}'
