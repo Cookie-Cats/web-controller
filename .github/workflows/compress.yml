@@ -59,7 +59,7 @@ jobs:
           id: get-sha
           run: |
             cd main || exit 1
-            echo "{sha}=$(git rev-parse HEAD)" >> $GITHUB_STATE
+            echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
         
         - name: Update web-controller in Cookie-Cats
           uses: peter-evans/repository-dispatch@v2
